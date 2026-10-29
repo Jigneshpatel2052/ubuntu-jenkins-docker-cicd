@@ -1,12 +1,513 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Ubuntu DevOps CI/CD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alepo Technology - Technology, cloud, software and digital solutions.">
+  <title>Alepo Technology | Digital Innovation</title>
+
+  <style>
+    :root {
+      --navy: #0b1220;
+      --blue: #2563eb;
+      --cyan: #38bdf8;
+      --light: #f4f7fb;
+      --text: #334155;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: white;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1100px, 90%);
+      margin: auto;
+    }
+
+    header {
+      background: var(--navy);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav {
+      min-height: 76px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      color: white;
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: var(--cyan);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #dbeafe;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--cyan);
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--blue);
+      color: white;
+      padding: 12px 22px;
+      border-radius: 7px;
+      font-weight: bold;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #1d4ed8;
+    }
+
+    .hero {
+      background:
+        radial-gradient(ellipse at 85% 20%, #164e6370, transparent 40%),
+        linear-gradient(135deg, #0b1220, #172554);
+      color: white;
+      padding: 105px 0;
+    }
+
+    .hero-content {
+      max-width: 720px;
+    }
+
+    .eyebrow {
+      color: var(--cyan);
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 65px);
+      line-height: 1.12;
+      margin: 18px 0;
+    }
+
+    .hero h1 span {
+      color: var(--cyan);
+    }
+
+    .hero p {
+      max-width: 600px;
+      color: #cbd5e1;
+      font-size: 17px;
+      margin-bottom: 28px;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      border: 1px solid #64748b;
+      color: white;
+      padding: 11px 22px;
+      border-radius: 7px;
+      margin-left: 10px;
+    }
+
+    section {
+      padding: 75px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title h2 {
+      color: var(--navy);
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: #64748b;
+    }
+
+    .services {
+      background: var(--light);
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .service-card {
+      background: white;
+      padding: 28px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px #0f172a12;
+    }
+
+    .service-icon {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .service-card h3 {
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 45px;
+      align-items: center;
+    }
+
+    .about-grid h2 {
+      color: var(--navy);
+      font-size: 34px;
+      line-height: 1.2;
+      margin: 12px 0 18px;
+    }
+
+    .about-panel {
+      background: var(--navy);
+      color: white;
+      padding: 35px;
+      border-radius: 15px;
+    }
+
+    .about-panel h3 {
+      color: var(--cyan);
+      margin-bottom: 12px;
+    }
+
+    .about-panel li {
+      margin: 12px 0 12px 20px;
+    }
+
+    .contact {
+      background: var(--light);
+    }
+
+    .contact-box {
+      max-width: 650px;
+      margin: auto;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 30px;
+    }
+
+    .contact-box label {
+      display: block;
+      margin: 14px 0 6px;
+      font-weight: bold;
+      color: var(--navy);
+    }
+
+    .contact-box input,
+    .contact-box textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font: inherit;
+    }
+
+    .contact-box textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .contact-box .btn {
+      margin-top: 18px;
+    }
+
+    #form-message {
+      margin-top: 12px;
+      color: #166534;
+    }
+
+    footer {
+      background: var(--navy);
+      color: #cbd5e1;
+      text-align: center;
+      padding: 25px 0;
+      font-size: 14px;
+    }
+
+    @media (max-width: 750px) {
+      nav {
+        padding: 15px 0;
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .nav-links a {
+        font-size: 12px;
+      }
+
+      .hero {
+        padding: 75px 0;
+      }
+
+      .service-grid,
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-grid {
+        gap: 25px;
+      }
+
+      section {
+        padding: 55px 0;
+      }
+
+      .btn-outline {
+        margin: 12px 0 0;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Deployment successful!</h1>
-  <p>Deployed using Jenkins, Docker and Nginx.</p>
-  <p>Version: 1.0</p>
+
+  <header>
+    <nav class="container">
+      <a class="logo" href="#home">ALEPO<span>.</span></a>
+
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-content">
+        <div class="eyebrow">Technology · Innovation · Growth</div>
+
+        <h1>Building a smarter <span>digital future.</span></h1>
+
+        <p>
+          Welcome to Alepo Technology. Explore modern technology
+          solutions designed to help businesses innovate, improve
+          operations, and grow in a connected world.
+        </p>
+
+        <a href="#services" class="btn">Explore Services</a>
+        <a href="#contact" class="btn-outline">Contact Us</a>
+      </div>
+    </section>
+
+    <section class="services" id="services">
+      <div class="container">
+        <div class="section-title">
+          <h2>Our Services</h2>
+          <p>Technology solutions for a digital world.</p>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card">
+            <div class="service-icon">☁️</div>
+            <h3>Cloud Solutions</h3>
+            <p>
+              Cloud infrastructure, deployment automation,
+              and scalable application environments.
+            </p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">💻</div>
+            <h3>Software Development</h3>
+            <p>
+              Modern web applications and software solutions
+              designed around business requirements.
+            </p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">⚙️</div>
+            <h3>DevOps & Automation</h3>
+            <p>
+              CI/CD pipelines, containerization, monitoring,
+              and reliable deployment workflows.
+            </p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">🌐</div>
+            <h3>Network Solutions</h3>
+            <p>
+              Network connectivity, infrastructure management,
+              and system integration.
+            </p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">🔒</div>
+            <h3>Security & Reliability</h3>
+            <p>
+              Practical approaches to secure configurations,
+              service reliability, and operational stability.
+            </p>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">📊</div>
+            <h3>Monitoring</h3>
+            <p>
+              Infrastructure visibility, performance insights,
+              and proactive troubleshooting.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container about-grid">
+        <div>
+          <div class="eyebrow">About Us</div>
+          <h2>Technology that moves businesses forward.</h2>
+          <p>
+            At Alepo Technology, our website concept focuses on
+            combining technology, engineering, and innovation to
+            create useful digital experiences.
+          </p>
+          <br>
+          <p>
+            We believe that reliable infrastructure, thoughtful
+            software, and continuous improvement are essential
+            to building successful digital solutions.
+          </p>
+        </div>
+
+        <div class="about-panel">
+          <h3>Our Approach</h3>
+          <ul>
+            <li>Innovation through technology</li>
+            <li>Reliable and scalable solutions</li>
+            <li>Automation and continuous improvement</li>
+            <li>Focus on quality and user experience</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="section-title">
+          <h2>Let's Connect</h2>
+          <p>Have a project or question? Send us a message.</p>
+        </div>
+
+        <form class="contact-box" id="contact-form">
+          <label for="name">Your Name</label>
+          <input id="name" name="name" required
+                 placeholder="Enter your name">
+
+          <label for="email">Email Address</label>
+          <input id="email" name="email" type="email" required
+                 placeholder="you@example.com">
+
+          <label for="message">Your Message</label>
+          <textarea id="message" name="message" required
+                    placeholder="How can we help?"></textarea>
+
+          <button class="btn" type="submit">Prepare Message</button>
+          <p id="form-message" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Alepo Technology.
+         All rights reserved.</p>
+      <p>Technology · Innovation · Growth</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    document.getElementById("contact-form")
+      .addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const message = document.getElementById("message").value.trim();
+
+        const subject = encodeURIComponent(
+          "Website enquiry from " + name
+        );
+
+        const body = encodeURIComponent(
+          "Name: " + name +
+          "\nEmail: " + email +
+          "\n\nMessage:\n" + message
+        );
+
+        document.getElementById("form-message").textContent =
+          "Your email application will open to prepare the message.";
+
+        window.location.href =
+          "mailto:YOUR_EMAIL@example.com?subject=" +
+          subject + "&body=" + body;
+      });
+  </script>
+
 </body>
 </html>
