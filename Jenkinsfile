@@ -14,15 +14,15 @@ pipeline {
         }
 
         stage('Validate') {
-            steps {
-                sh '''
-                    set -eu
-                    test -s index.html
-                    grep -q "Deployment successful!" index.html
-                    echo "HTML validation passed"
-                '''
-            }
-        }
+    steps {
+        sh '''
+            set -eu
+            test -s index.html
+            grep -qi "Alepo Technology" index.html
+            echo "Alepo website validation passed"
+        '''
+    }
+}
 
         stage('Deploy') {
             steps {
@@ -34,16 +34,16 @@ pipeline {
         }
 
         stage('Smoke Test') {
-            steps {
-                sh '''
-                    set -eu
-                    curl --fail --silent --show-error \
-                      http://127.0.0.1:8081/ -o /tmp/deployed.html
-                    grep -q "Deployment successful!" /tmp/deployed.html
-                    echo "Deployment verification passed"
-                '''
-            }
-        }
+    steps {
+        sh '''
+            set -eu
+            curl --fail --silent --show-error \
+                http://127.0.0.1:8081/ -o /tmp/deployed.html
+            grep -qi "Alepo Technology" /tmp/deployed.html
+            echo "Alepo website deployment verified"
+        '''
+    }
+}
     }
 
     post {
