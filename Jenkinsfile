@@ -38,7 +38,7 @@ pipeline {
                 sh '''
                     set -eu
                     curl --fail --silent --show-error \
-                      http://127.0.0.1:8080/ -o /tmp/deployed.html
+                      http://127.0.0.1:8081/ -o /tmp/deployed.html
                     grep -q "Deployment successful!" /tmp/deployed.html
                     echo "Deployment verification passed"
                 '''
