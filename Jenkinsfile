@@ -1,9 +1,12 @@
 
 pipeline {
     agent any
-        triggers {
-    pollSCM('H/2 * * * *')
-}
+
+    // Automatically check GitHub for changes approximately every 2 minutes
+    triggers {
+        pollSCM('H/2 * * * *')
+    }
+
     options {
         timestamps()
     }
@@ -16,15 +19,15 @@ pipeline {
         }
 
         stage('Validate') {
-    steps {
-        sh '''
-            set -eu
-            test -s index.html
-            grep -qi "Alepo Technology" index.html
-            echo "Alepo website validation passed"
-        '''
-    }
-}
+            steps {
+                sh '''
+                    set -eu
+                    test -s index.html
+                    grep -qi "Alepo Technology" index.html
+                    echo "Alepo website validation passed"
+                '''
+            }
+        }
 
         stage('Deploy') {
             steps {
@@ -36,16 +39,16 @@ pipeline {
         }
 
         stage('Smoke Test') {
-    steps {
-        sh '''
-            set -eu
-            curl --fail --silent --show-error \
-                http://127.0.0.1:8081/ -o /tmp/deployed.html
-            grep -qi "Alepo Technology" /tmp/deployed.html
-            echo "Alepo website deployment verified"
-        '''
-    }
-}
+            steps {
+                sh '''
+                    set -eu
+                    curl --fail --silent --show-error \
+                        http://127.0.0.1:8081/ -o /tmp/deployed.html
+                    grep -qi "Alepo Technology" /tmp/deployed.html
+                    echo "Alepo website deployment verified"
+                '''
+            }
+        }
     }
 
     post {
@@ -57,3 +60,4 @@ pipeline {
         }
     }
 }
+
